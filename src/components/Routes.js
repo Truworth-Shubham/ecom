@@ -5,7 +5,7 @@ import Cart from './cart';
 import Navbar from './Navbar'
 
 const RoutesPage = () => {
-    // console.log("routeas pagaex called")
+   
   return (
     <>
     <Navbar/>

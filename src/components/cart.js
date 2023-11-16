@@ -1,6 +1,5 @@
 import React, { useContext,useEffect,useState } from 'react'
 import { store } from '../context/cartContext'
-import CircularProgress from '@mui/material/CircularProgress';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -10,6 +9,7 @@ import CartCard from './cartCard';
 const Cart = () => {
 
     const {cartData} = useContext(store)
+    
     let totalPrice = 0
     cartData.forEach((e)=>{
       totalPrice += e.qty*e.price

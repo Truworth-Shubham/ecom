@@ -5,6 +5,7 @@ import { store } from './context/cartContext'
 const App = () => {
 
   const [cartData,setCartData] = useState([]);
+  
   return (
     <>
    <store.Provider value={{cartData,setCartData}}>

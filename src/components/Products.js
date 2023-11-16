@@ -8,14 +8,13 @@ import ProductCard from './ProductCard'
 const Products = () => {
 
     const productsData =  useFetch('https://fakestoreapi.com/products')
-
     const [data,setData] = useState([])
+
     useEffect(()=>{
         fetchData()
     },[productsData])
     
     const fetchData = async () => {
- 
         productsData.forEach((e)=>{
             e.qty=1
         })
@@ -54,13 +53,3 @@ const Products = () => {
 }
 
 export default Products
-/*
-import * as React from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
-
-export default function CircularIndeterminate() {
-  
-}
-
-*/

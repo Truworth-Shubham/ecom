@@ -23,7 +23,6 @@ const CartCard = ({el,index}) => {
     }
   }
 
-
   return (
     <>
       <div key={index} className='cart-container'>
