@@ -1,0 +1,42 @@
+.cardContainer {
+    margin: 20px 10px;
+    max-width: 300px;
+    width: 300px;
+    box-shadow: 1px 1px 10px 1px gray;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffff;
+}
+
+.card-image {
+    text-align: center;
+    margin-bottom: 30px;
+    background-color: #f7f7f7;
+}
+
+.card-image>img {
+    width: 200px;
+    height: 160px;
+}
+
+.cardContainer h4 {
+    margin: 10px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 200px;
+}
+
+.cardContainer p {
+    margin: 10px 0;
+    color: gray;
+}
+
+.productCard-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

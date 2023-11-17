@@ -1,6 +1,4 @@
-
-                
-.cart-container{
+.cart-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -10,19 +8,23 @@
     background-color: #fff;
     background-color: #fff;
 }
-.cart-content{
+
+.cart-content {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.cart-content>div{
-    margin-top:10px;
+
+.cart-content>div {
+    margin-top: 10px;
 }
-.cart-content button{
+
+.cart-content button {
     padding: 2px 20px;
     margin: 0 10px;
 }
-.totalPrice-conatiner{
+
+.totalPrice-conatiner {
     background-color: #fff;
     display: flex;
     justify-content: space-between;

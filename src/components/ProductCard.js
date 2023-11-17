@@ -1,54 +1,80 @@
-import React,{useContext} from 'react'
-import './card.css'
+import React, { useContext, useState, useEffect, useRef } from 'react'
+import '../css/card.css'
 import TextRating from './Rating'
 import Button from '@mui/material/Button';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { store } from '../context/cartContext'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import IconButton from '@mui/material/IconButton'
+import CloseIcon from '@mui/icons-material/Close'
+import { Snackbar } from '@mui/material';
 
+const ProductCard = ({ id, data }) => {
 
-const ProductCard = ({id,data}) => {
+  const { cartData, setCartData } = useContext(store)
+  const [alertOpen, setAlertOpen] = useState(false)
+  const cartBtnRef = useRef(false)
 
-    const {cartData,setCartData} = useContext(store)
-
-    const notify = ()=> toast.success('🦄 Wow so easy!', {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      draggable: true,
-      theme: "colored",
-      });
-
-    const addCart = () => {
-        setCartData([...cartData,data])
-        notify()
+  useEffect(() => {
+    if (cartData.find((e) => e.id == data.id)) {
+      cartBtnRef.current.innerText = "in cart"
+      cartBtnRef.current.setAttribute("disabled", true)
+      cartBtnRef.current.style.background = "gray"
     }
+  }, [cartBtnRef])
 
+  const addCart = () => {
+    setCartData([...cartData, data])
+    setAlertOpen(true)
+    cartBtnRef.current.innerText = "in cart"
+    cartBtnRef.current.setAttribute("disabled", true)
+    cartBtnRef.current.style.background = "gray"
+  }
+
+  const handleClose = () => setAlertOpen(false)
+
+  const action = (
+    <>
+      <IconButton
+        size='small'
+        aria-label='close'
+        color='inherit'
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  )
 
   return (
-    
 
     <div className='cardContainer' key={id}>
       <div>
         <div className='card-image'>
-            <img src={data.image} width='200px' alt='404 not found'/>
+          <img src={data.image} width='200px' alt='404 not found' />
         </div>
         <h4>{data.title}</h4>
-        <p>{data.description.slice(0,100)+"..."}</p>
+        <p className='productCard-description'>{data.description}</p>
         <div>
-            <p><span>price: $ </span>{data.price}</p>
-            <p style={{display:'flex',justifyContent:'space-between'}}><span>Rating :</span> <TextRating count={data.rating.rate}/></p>
-            <p><span>reviews: </span>{data.rating.count}</p>
+          <p><span>price: $ </span>{data.price}</p>
+          <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Rating :</span> <TextRating count={data.rating.rate} /></p>
+          <p><span>reviews: </span>{data.rating.count}</p>
         </div>
-      </div>  
-        <div style={{marginTop: 'auto'}}>
-        <Button style={{width:'100%'}} variant="contained" startIcon={ <ShoppingCartCheckoutIcon />} onClick={addCart}>ADD TO CART</Button>
-        </div>
-        <ToastContainer/>
+      </div>
+      <Button style={{ width: '100%' }} ref={cartBtnRef} variant="contained" startIcon={<ShoppingCartCheckoutIcon />} onClick={addCart}>
+        ADD TO CART
+      </Button>
+      <Snackbar
+        open={alertOpen}
+        message="successfully added to cart"
+        action={action}
+        ContentProps={{
+          sx: {
+            background: "green"
+          }
+        }}
+      />
     </div>
-    
+
   )
 }
 
