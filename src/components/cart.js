@@ -13,6 +13,11 @@ const Cart = () => {
   const navigate = useNavigate()
 
   let totalPrice = 0
+  
+    cartData.forEach((element) => {
+      totalPrice += element.qty * element.price
+    })
+  
 
   return (
     <>
@@ -30,11 +35,7 @@ const Cart = () => {
               <div>Total Price</div>
               <div>
                 $
-                {
-                  cartData.map((element) => {
-                    return totalPrice += element.qty * element.price
-                  })
-                }
+                {totalPrice.toFixed(2)}
               </div>
               <Button variant='primary' onClick={() => navigate("/")}>Buy Now</Button>
             </div>
