@@ -82,9 +82,9 @@ const ProductCard = ({ id, data }) => {
         </div>
       </div>
       <div ref={cartBtnRef} >
-      <Button type='primary' onClick={addCart} block>
-        ADD TO CART
-      </Button>
+        <Button type='primary' onClick={addCart} block>
+          ADD TO CART
+        </Button>
       </div>
       <div ref={changeQtyRef} style={{ display: 'none', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', }}>
         <div>${(data.price * qty).toFixed(2)}</div>

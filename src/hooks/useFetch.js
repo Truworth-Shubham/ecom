@@ -5,7 +5,7 @@ const useFetch = (url) => {
 
     const [data, setData] = useState([])
 
-    const makeRequest = async()=>{
+    const makeRequest = async () => {
         try {
             const data = await axios(url)
             setData(data.data)
