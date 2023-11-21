@@ -1,4 +1,35 @@
-.nav-container {
-    background-color: blue;
-    padding: 12px 10px;
+.nav-conatiner {
+    display: flex;
+    padding: 20px 30px;
+    background-color: rgb(25 118 210);
+    color: white;
+    justify-content: space-between;
+    font-size: larger;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.nav-conatiner .cart-icon {
+    color: rgb(9, 83, 156);
+    font-weight: 900;
+    margin-left: 5px;
+    position: relative;
+    border-radius: '50%';
+    color: white;
+}
+.cart-icon .cart-qty-span{
+    border-radius: 50%;
+    padding: 1px;
+    background-color: red;
+    position: absolute;
+    color: white;
+    top: -5px;
+    right: -13px;
+    font-weight: 500;
+    font-size: small;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

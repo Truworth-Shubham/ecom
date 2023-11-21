@@ -1,35 +1,34 @@
 import { useContext } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import LocalMallIcon from '@mui/icons-material/LocalMall';
-import { Link, useNavigate } from 'react-router-dom';
-import { store } from '../context/cartContext';
+import '../css/nav.css'
+import { Link } from 'react-router-dom';
+import { Store } from '../context/cartContext';
+import { ShoppingFilled, ShoppingCartOutlined } from '@ant-design/icons';
 
-export default function ButtonAppBar() {
+export default function Navbar() {
 
-  const { cartData } = useContext(store)
-  const navigate = useNavigate()
+  const { cartData } = useContext(Store)
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, alignItems: 'center', display: 'flex' }}>
-            <LocalMallIcon />&nbsp;
-            <Link to='/'>
-              My Shop
-            </Link>
-          </Typography>
-          <Button color="inherit" onClick={() => navigate('/cart')} style={{ position: 'relative' }}>
-            <ShoppingCartIcon />Cart
-            <span style={{ marginLeft: '5px', padding: '1px', borderRadius: '50%', color: "red", fontWeight: '800', position: 'absolute', right: "0px", top: 0 }}>{cartData.length}</span>
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <>
+      <div className='nav-conatiner'>
+        <Link to='/'>
+          <div><ShoppingFilled /> My Shop</div>
+        </Link>
+        <Link to="/cart">
+          <div>
+            Cart
+            <span className='cart-icon'>
+              <ShoppingCartOutlined />
+              {
+                cartData.length > 0 ?
+                  <span className='cart-qty-span' >{cartData.length}</span>
+                  :
+                  ""
+              }
+            </span>
+          </div>
+        </Link>
+      </div>
+    </>
   );
 }

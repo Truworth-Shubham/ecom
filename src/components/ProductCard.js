@@ -1,52 +1,71 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'
 import '../css/card.css'
-import TextRating from './Rating'
-import Button from '@mui/material/Button';
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-import { store } from '../context/cartContext'
-import IconButton from '@mui/material/IconButton'
-import CloseIcon from '@mui/icons-material/Close'
-import { Snackbar } from '@mui/material';
+import { Store } from '../context/cartContext'
+import { Button, Rate, message } from 'antd'
+import { PlusOutlined, MinusOutlined, DeleteFilled } from '@ant-design/icons'
+
 
 const ProductCard = ({ id, data }) => {
 
-  const { cartData, setCartData } = useContext(store)
-  const [alertOpen, setAlertOpen] = useState(false)
+  const { cartData, setCartData } = useContext(Store)
+  const [messageApi, contextHolder] = message.useMessage();
+  const [qty, setQty] = useState(1)
   const cartBtnRef = useRef(false)
+  const changeQtyRef = useRef(false)
 
   useEffect(() => {
     if (cartData.find((e) => e.id == data.id)) {
-      cartBtnRef.current.innerText = "in cart"
-      cartBtnRef.current.setAttribute("disabled", true)
-      cartBtnRef.current.style.background = "gray"
+      cartBtnRef.current.style.display = "none"
+      changeQtyRef.current.style.display = "flex"
     }
-  }, [cartBtnRef])
+    productQty()
+  }, [cartBtnRef, qty])
 
   const addCart = () => {
     setCartData([...cartData, data])
-    setAlertOpen(true)
-    cartBtnRef.current.innerText = "in cart"
-    cartBtnRef.current.setAttribute("disabled", true)
-    cartBtnRef.current.style.background = "gray"
+    cartBtnRef.current.style.display = "none"
+    changeQtyRef.current.style.display = "flex"
+    success()
   }
 
-  const handleClose = () => setAlertOpen(false)
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'successfully added to cart',
+    });
+  };
 
-  const action = (
-    <>
-      <IconButton
-        size='small'
-        aria-label='close'
-        color='inherit'
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </>
-  )
+  const handleQuantity = (operator) => {
+    const tempCart = [...cartData]
+    const indexCart = tempCart.findIndex(item => item.id === data.id)
+    if (operator === "add") {
+      tempCart[indexCart].qty = tempCart[indexCart].qty + 1
+      setQty(tempCart[indexCart].qty)
+      setCartData(tempCart)
+      productQty()
+    }
+    else if (operator === "dec" && qty == 1) {
+      setCartData(cartData.filter((e) => e.id !== data.id))
+      cartBtnRef.current.style.display = "flex"
+      changeQtyRef.current.style.display = "none"
+    }
+    else {
+      tempCart[indexCart].qty = tempCart[indexCart].qty - 1
+      setQty(tempCart[indexCart].qty)
+      setCartData(tempCart)
+      productQty()
+    }
+  }
+
+  const productQty = () => {
+    cartData.forEach((e) => {
+      if (e.id === data.id) {
+        setQty(e.qty)
+      }
+    })
+  }
 
   return (
-
     <div className='cardContainer' key={id}>
       <div>
         <div className='card-image'>
@@ -55,24 +74,27 @@ const ProductCard = ({ id, data }) => {
         <h4>{data.title}</h4>
         <p className='productCard-description'>{data.description}</p>
         <div>
-          <p><span>price: $ </span>{data.price}</p>
-          <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Rating :</span> <TextRating count={data.rating.rate} /></p>
-          <p><span>reviews: </span>{data.rating.count}</p>
+          <p><span>Price: $ </span>{data.price}</p>
+          <p style={{ display: 'flex', justifyContent: 'space-between' }}><span>Rating :</span>
+            <Rate allowHalf defaultValue={data.rating.rate} disabled />
+          </p>
+          <p><span>Reviews: </span>{data.rating.count}</p>
         </div>
       </div>
-      <Button style={{ width: '100%' }} ref={cartBtnRef} variant="contained" startIcon={<ShoppingCartCheckoutIcon />} onClick={addCart}>
+      <div ref={cartBtnRef} >
+      <Button type='primary' onClick={addCart} block>
         ADD TO CART
       </Button>
-      <Snackbar
-        open={alertOpen}
-        message="successfully added to cart"
-        action={action}
-        ContentProps={{
-          sx: {
-            background: "green"
-          }
-        }}
-      />
+      </div>
+      <div ref={changeQtyRef} style={{ display: 'none', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', }}>
+        <div>${(data.price * qty).toFixed(2)}</div>
+        <div style={{ display: 'flex', alignItems: 'center', margin: '10px 0' }}>
+          <Button onClick={() => handleQuantity("dec")}>{qty > 1 ? <MinusOutlined /> : <DeleteFilled />}</Button>
+          <span>&nbsp;{qty}&nbsp;</span>
+          <Button onClick={() => handleQuantity("add")}><PlusOutlined /></Button>
+        </div>
+      </div>
+      {contextHolder}
     </div>
 
   )

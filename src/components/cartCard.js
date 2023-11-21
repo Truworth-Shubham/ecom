@@ -1,10 +1,12 @@
 import React, { useContext } from 'react'
-import TextRating from './Rating'
-import { store } from '../context/cartContext'
+import { Store } from '../context/cartContext'
+import { Rate, Button } from 'antd'
+import { PlusOutlined, MinusOutlined, DeleteFilled } from '@ant-design/icons'
+
 
 const CartCard = ({ el, index }) => {
 
-  const { cartData, setCartData } = useContext(store)
+  const { cartData, setCartData } = useContext(Store)
 
   const changeQty = (operator) => {
     const tempCart = [...cartData]
@@ -22,21 +24,28 @@ const CartCard = ({ el, index }) => {
     }
   }
 
+  const deleteProduct = () => {
+    setCartData(cartData.filter((e) => e.id !== el.id))
+  }
+
   return (
     <>
       <div key={index} className='cart-container'>
         <div><img src={el.image} width='80px' height='100px' /></div>
         <div className='cart-content'>
           <h5>{el.title}</h5>
-          <p><TextRating count={el.rating.rate} /></p>
+          <p><Rate allowHalf disabled defaultValue={el.rating.rate} /></p>
           <div>
-            <button onClick={() => changeQty("add")}>+</button>
+            <Button onClick={() => changeQty("dec")}><MinusOutlined /></Button>
             {el.qty}
-            <button onClick={() => changeQty("dec")}>-</button>
+            <Button onClick={() => changeQty("add")}><PlusOutlined /></Button>
           </div>
         </div>
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <p>Price : {(el.qty * el.price).toFixed(2)}</p>
+          <Button onClick={deleteProduct}>
+            <DeleteFilled style={{ color: 'red' }} />
+          </Button>
         </div>
       </div>
     </>
@@ -44,3 +53,34 @@ const CartCard = ({ el, index }) => {
 }
 
 export default CartCard
+
+/*
+
+<Card className='itemCard'
+                        title={el.title}
+                        key={index}
+                        cover={<Image className='itemCardImage'
+                            src={el.image} />}
+ 
+                        actions={[
+                            <Rate allowHalf disabled value={el.rating.rate} />
+                        ]}
+ 
+ 
+                    >
+                        <Card.Meta title={<Typography.Paragraph>
+                            Price : ${el.price}
+                        </Typography.Paragraph>}
+ 
+                            description={<Typography.Paragraph ellipsis={{ row: 5, expandable: true, symbol: '+' }} >{el.description}</Typography.Paragraph>}
+ 
+                        >
+ 
+ 
+                        </Card.Meta>
+ 
+ 
+                    </Card>
+
+
+*/

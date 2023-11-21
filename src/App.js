@@ -1,16 +1,21 @@
-import React, { useState } from 'react'
-import RoutesPage from './components/Routes'
-import { store } from './context/cartContext'
+import React from 'react'
+import { Routes, Route } from "react-router-dom"
+import ContextApi from './context/cartContext'
+import Navbar from './components/Navbar'
+import Products from './pages/Products';
+import Cart from './pages/Cart';
 
 const App = () => {
 
-  const [cartData, setCartData] = useState([]);
-
   return (
     <>
-      <store.Provider value={{ cartData, setCartData }}>
-        <RoutesPage />
-      </store.Provider>
+     <ContextApi>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Products />} />
+        <Route path='/cart' element={<Cart />} />
+      </Routes>
+      </ContextApi>
     </>
   )
 }
