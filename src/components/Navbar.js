@@ -13,7 +13,9 @@ export default function Navbar() {
     <>
       <div className='nav-conatiner'>
         <Link to='/'>
-          <div onClick={() => setCartBtn(true)}><ShoppingFilled /> My Shop</div>
+          <div onClick={() => setCartBtn(true)}><ShoppingFilled />
+           My Shop
+          </div>
         </Link>
         {
           cartBtn ?
