@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import '../css/nav.css'
 import { Link } from 'react-router-dom';
-import { Store } from '../context/cartContext';
+import { Store } from '../context/CartContext';
 import { ShoppingFilled, ShoppingCartOutlined } from '@ant-design/icons';
 
 export default function Navbar() {
