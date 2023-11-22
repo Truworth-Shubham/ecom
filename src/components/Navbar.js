@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import '../css/nav.css'
+import '../css/navbar.css'
 import { Link } from 'react-router-dom';
 import { Store } from '../context/AppContext';
 import { ShoppingFilled, ShoppingCartOutlined } from '@ant-design/icons';

@@ -5,7 +5,7 @@ import { Button, Rate, message } from 'antd'
 import { PlusOutlined, MinusOutlined, DeleteFilled } from '@ant-design/icons'
 
 
-const ProductCard = ({ id, data }) => {
+const ProductCard = ({  data }) => {
 
   const { cartData, setCartData } = useContext(Store)
   const [qty, setQty] = useState(1)
@@ -63,7 +63,7 @@ const ProductCard = ({ id, data }) => {
   }
 
   return (
-    <div className='cardContainer' key={id}>
+    <div className='cardContainer' >
       <div>
         <div className='card-image'>
           <img src={data.image} width='200px' alt='404 not found' />

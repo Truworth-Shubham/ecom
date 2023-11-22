@@ -27,7 +27,7 @@ const Products = () => {
                         {
                             data && data.map((el, index) => {
                                 return (
-                                    <ProductCard id={index} data={el} />
+                                    <ProductCard key={index} data={el} />
                                 )
                             })
                         }

@@ -22,7 +22,7 @@ const Cart = () => {
             {
               cartData.map((el, index) => {
                 return (
-                  <CartCard el={el} index={index} />
+                  <CartCard el={el} index={index} key={index}/>
                 )
               })
             }
