@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import '../css/card.css'
-import { Store } from '../context/CartContext'
+import { Store } from '../context/cartContext'
 import { Button, Rate, message } from 'antd'
 import { PlusOutlined, MinusOutlined, DeleteFilled } from '@ant-design/icons'
 
