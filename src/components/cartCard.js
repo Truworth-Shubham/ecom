@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Store } from '../context/CartContext'
+import { Store } from '../context/AppContext'
 import { Rate, Button } from 'antd'
 import { PlusOutlined, MinusOutlined, DeleteFilled } from '@ant-design/icons'
 

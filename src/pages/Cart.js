@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Store } from '../context/CartContext'
+import { Store } from '../context/AppContext'
 import { ShoppingFilled } from '@ant-design/icons';
 import '../css/cartCard.css'
 import CartCard from '../components/CartCard';
