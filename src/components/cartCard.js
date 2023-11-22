@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Store } from '../context/cartContext'
+import { Store } from '../context/CartContext'
 import { Rate, Button } from 'antd'
 import { PlusOutlined, MinusOutlined, DeleteFilled } from '@ant-design/icons'
 
@@ -15,7 +15,7 @@ const CartCard = ({ el, index }) => {
       tempCart[indexCart].qty = tempCart[indexCart].qty + 1
       setCartData(tempCart)
     }
-    else if (operator === "dec" && el.qty == 1) {
+    else if (operator === "dec" && el.qty === 1) {
       setCartData(cartData.filter((e) => e.id !== el.id))
     }
     else {
@@ -31,7 +31,7 @@ const CartCard = ({ el, index }) => {
   return (
     <>
       <div key={index} className='cart-container'>
-        <div><img src={el.image} width='80px' height='100px' /></div>
+        <div><img src={el.image} width='80px' height='100px' alt='not found' /></div>
         <div className='cart-content'>
           <h5>{el.title}</h5>
           <p><Rate allowHalf disabled defaultValue={el.rating.rate} /></p>
@@ -54,33 +54,3 @@ const CartCard = ({ el, index }) => {
 
 export default CartCard
 
-/*
-
-<Card className='itemCard'
-                        title={el.title}
-                        key={index}
-                        cover={<Image className='itemCardImage'
-                            src={el.image} />}
- 
-                        actions={[
-                            <Rate allowHalf disabled value={el.rating.rate} />
-                        ]}
- 
- 
-                    >
-                        <Card.Meta title={<Typography.Paragraph>
-                            Price : ${el.price}
-                        </Typography.Paragraph>}
- 
-                            description={<Typography.Paragraph ellipsis={{ row: 5, expandable: true, symbol: '+' }} >{el.description}</Typography.Paragraph>}
- 
-                        >
- 
- 
-                        </Card.Meta>
- 
- 
-                    </Card>
-
-
-*/

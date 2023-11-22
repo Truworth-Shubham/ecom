@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect, useRef } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import '../css/card.css'
-import { Store } from '../context/cartContext'
+import { Store } from '../context/CartContext'
 import { Button, Rate, message } from 'antd'
 import { PlusOutlined, MinusOutlined, DeleteFilled } from '@ant-design/icons'
 
@@ -8,23 +8,21 @@ import { PlusOutlined, MinusOutlined, DeleteFilled } from '@ant-design/icons'
 const ProductCard = ({ id, data }) => {
 
   const { cartData, setCartData } = useContext(Store)
-  const [messageApi, contextHolder] = message.useMessage();
   const [qty, setQty] = useState(1)
-  const cartBtnRef = useRef(false)
-  const changeQtyRef = useRef(false)
+  const [btnVisible, setBtnVisible] = useState(false)
+
+  const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
     if (cartData.find((e) => e.id == data.id)) {
-      cartBtnRef.current.style.display = "none"
-      changeQtyRef.current.style.display = "flex"
+      setBtnVisible(true)
     }
     productQty()
-  }, [cartBtnRef, qty])
+  }, [qty])
 
   const addCart = () => {
     setCartData([...cartData, data])
-    cartBtnRef.current.style.display = "none"
-    changeQtyRef.current.style.display = "flex"
+    setBtnVisible(true)
     success()
   }
 
@@ -46,8 +44,7 @@ const ProductCard = ({ id, data }) => {
     }
     else if (operator === "dec" && qty == 1) {
       setCartData(cartData.filter((e) => e.id !== data.id))
-      cartBtnRef.current.style.display = "flex"
-      changeQtyRef.current.style.display = "none"
+      setBtnVisible(false)
     }
     else {
       tempCart[indexCart].qty = tempCart[indexCart].qty - 1
@@ -81,19 +78,21 @@ const ProductCard = ({ id, data }) => {
           <p><span>Reviews: </span>{data.rating.count}</p>
         </div>
       </div>
-      <div ref={cartBtnRef} >
-        <Button type='primary' onClick={addCart} block>
-          ADD TO CART
-        </Button>
-      </div>
-      <div ref={changeQtyRef} style={{ display: 'none', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', }}>
-        <div>${(data.price * qty).toFixed(2)}</div>
-        <div style={{ display: 'flex', alignItems: 'center', margin: '10px 0' }}>
-          <Button onClick={() => handleQuantity("dec")}>{qty > 1 ? <MinusOutlined /> : <DeleteFilled />}</Button>
-          <span>&nbsp;{qty}&nbsp;</span>
-          <Button onClick={() => handleQuantity("add")}><PlusOutlined /></Button>
-        </div>
-      </div>
+      {
+        btnVisible ?
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', }}>
+            <div>${(data.price * qty).toFixed(2)}</div>
+            <div style={{ display: 'flex', alignItems: 'center', margin: '10px 0' }}>
+              <Button onClick={() => handleQuantity("dec")}>{qty > 1 ? <MinusOutlined /> : <DeleteFilled />}</Button>
+              <span>&nbsp;{qty}&nbsp;</span>
+              <Button onClick={() => handleQuantity("add")}><PlusOutlined /></Button>
+            </div>
+          </div>
+          :
+          <Button type='primary' onClick={addCart} block>
+            ADD TO CART
+          </Button>
+      }
       {contextHolder}
     </div>
 

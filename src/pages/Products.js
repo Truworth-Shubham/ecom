@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import useFetch from '../hooks/useFetch';
+import useFetch from '../hooks/use-fetch';
 import { Spin } from 'antd'
 import ProductCard from '../components/ProductCard'
 
@@ -21,25 +21,24 @@ const Products = () => {
 
     return (
         <>
-            {
-                data.length > 0 ?
-                    <div className='main-container'>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-                            {
-                                data && data.map((el, index) => {
-                                    return (
-                                        <ProductCard id={index} data={el} />
-                                    )
-                                })
-                            }
-                        </div>
+            {data.length > 0 ?
+                <div className='main-container'>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+                        {
+                            data && data.map((el, index) => {
+                                return (
+                                    <ProductCard id={index} data={el} />
+                                )
+                            })
+                        }
                     </div>
-                    :
-                    <div className='productPage-loader'>
-                        <div sx={{ display: 'flex' }}>
-                            <Spin size="large"></Spin>
-                        </div>
+                </div>
+                :
+                <div className='productPage-loader'>
+                    <div sx={{ display: 'flex' }}>
+                        <Spin size="large"></Spin>
                     </div>
+                </div>
             }
         </>
     )

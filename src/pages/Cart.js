@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import { Store } from '../context/cartContext'
+import { Store } from '../context/CartContext'
 import { ShoppingFilled } from '@ant-design/icons';
 import '../css/cartCard.css'
-import CartCard from '../components/cartCard';
+import CartCard from '../components/CartCard';
 
 const Cart = () => {
 

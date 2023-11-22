@@ -10,8 +10,8 @@ const useFetch = (url) => {
             const data = await axios(url)
             setData(data.data)
         } catch (error) {
+            console.log(error)
             alert(error.message)
-            console.log(error, "try catch")
         }
     }
     makeRequest()
@@ -19,4 +19,4 @@ const useFetch = (url) => {
     return data
 }
 
-export default useFetch
+export default useFetch;

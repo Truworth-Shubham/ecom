@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route } from "react-router-dom"
-import ContextApi from './context/cartContext'
+import ContextApi from './context/CartContext'
 import Navbar from './components/Navbar'
 import Products from './pages/Products'
 import Cart from './pages/Cart'

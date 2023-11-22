@@ -1,33 +1,40 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import '../css/nav.css'
 import { Link } from 'react-router-dom';
-import { Store } from '../context/cartContext';
+import { Store } from '../context/CartContext';
 import { ShoppingFilled, ShoppingCartOutlined } from '@ant-design/icons';
 
 export default function Navbar() {
 
   const { cartData } = useContext(Store)
+  const [cartBtn, setCartBtn] = useState(true)
 
   return (
     <>
       <div className='nav-conatiner'>
         <Link to='/'>
-          <div><ShoppingFilled /> My Shop</div>
+          <div onClick={() => setCartBtn(true)}><ShoppingFilled /> My Shop</div>
         </Link>
-        <Link to="/cart">
-          <div>
-            Cart
-            <span className='cart-icon'>
-              <ShoppingCartOutlined />
-              {
-                cartData.length > 0 ?
-                  <span className='cart-qty-span' >{cartData.length}</span>
-                  :
-                  ""
-              }
-            </span>
-          </div>
-        </Link>
+        {
+          cartBtn ?
+            <Link to="/cart">
+              <div onClick={() => setCartBtn(false)}>
+                Cart
+                <span className='cart-icon'>
+                  <ShoppingCartOutlined />
+                  {
+                    cartData.length > 0
+                      ?
+                      <span className='cart-qty-span' >{cartData.length}</span>
+                      :
+                      ""
+                  }
+                </span>
+              </div>
+            </Link>
+            :
+            ""
+        }
       </div>
     </>
   );
